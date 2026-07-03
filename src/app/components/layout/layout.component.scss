@@ -1,0 +1,10 @@
+/* Ensure smooth scrolling for the entire page */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Additional styling if needed */
+main {
+  transition: margin-left 0.3s ease;
+}

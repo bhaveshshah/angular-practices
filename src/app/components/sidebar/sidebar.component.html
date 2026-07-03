@@ -1,0 +1,266 @@
+<!--
+  Main sidebar container
+  - fixed: Positions the sidebar in a fixed position on the screen
+  - left-0: Positions it at the left edge (0px from left)
+  - top-0: Positions it at the top edge (0px from top)
+  - h-screen: Makes height 100% of viewport height
+  - w-80: Sets width to 320px (80 * 4px)
+  - bg-slate-900: Dark blue-gray background color
+  - border-r: Adds border on the right side
+  - border-slate-800: Dark slate color for the border
+  - flex: Makes this a flexbox container
+  - flex-col: Arranges children in a column (vertical stack)
+-->
+<aside
+  class="fixed left-0 top-0 h-screen w-80 bg-slate-900 border-r border-slate-800 flex flex-col"
+>
+  <!--
+    Logo section at the top
+    - p-6: Padding of 24px (6 * 4px) on all sides
+    - border-b: Border on the bottom
+    - border-slate-800: Dark slate color for border
+  -->
+  <div class="p-6 border-b border-slate-800">
+    <!--
+      Logo icon
+      - w-10: Width of 40px (10 * 4px)
+      - h-10: Height of 40px
+      - bg-blue-600: Blue background color
+      - rounded-lg: Large border radius (8px)
+      - flex: Flexbox container
+      - items-center: Vertically centers content
+      - justify-center: Horizontally centers content
+    -->
+    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+      <!--
+        SVG icon
+        - w-6: Width of 24px (6 * 4px)
+        - h-6: Height of 24px
+        - text-white: White color for the icon
+      -->
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 10V3L4 14h7v7l9-11h-7z"
+        />
+      </svg>
+    </div>
+  </div>
+
+  <!--
+    Navigation menu section
+    - flex-1: Takes up all available space (grows to fill)
+    - overflow-y-auto: Enables vertical scrolling if content overflows
+    - py-6: Padding top and bottom of 24px (6 * 4px)
+  -->
+  <nav class="flex-1 overflow-y-auto py-6">
+    <!--
+      px-3: Padding left and right of 12px (3 * 4px)
+      space-y-1: Adds 4px vertical spacing between child elements
+    -->
+    <div class="px-3 space-y-1">
+      <!-- Loop through menu items -->
+      <ng-container *ngFor="let item of menuItems">
+        <!--
+          Menu item button/link
+          - group: Creates a group for hover effects on children
+          - w-full: Full width (100%)
+          - flex: Flexbox container
+          - items-center: Vertically center items
+          - justify-between: Space between left and right content
+          - px-3: Padding left/right of 12px
+          - py-2.5: Padding top/bottom of 10px (2.5 * 4px)
+          - text-sm: Small text size (14px)
+          - font-medium: Medium font weight (500)
+          - rounded-lg: Large border radius (8px)
+          - transition-colors: Smooth transition for color changes
+          - duration-200: Transition duration of 200ms
+
+          Conditional classes based on active state:
+          - When active (Dashboard): bg-slate-800 text-white
+          - When not active: text-slate-400 hover:bg-slate-800 hover:text-white
+        -->
+        <button
+          [class]="
+            'group w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ' +
+            (activeItem === item.label
+              ? 'bg-slate-800 text-white'
+              : 'text-slate-400 hover:bg-slate-800 hover:text-white')
+          "
+          (click)="onMenuItemClick(item)"
+        >
+          <!-- Left side: Icon + Label -->
+          <div class="flex items-center gap-3">
+            <!--
+              Icon container
+              - w-5: Width of 20px (5 * 4px)
+              - h-5: Height of 20px
+              - flex-shrink-0: Prevents icon from shrinking
+            -->
+            <div class="w-5 h-5 flex-shrink-0">
+              <!-- Different icons based on menu item -->
+
+              <!-- Home icon for Dashboard -->
+              <svg
+                *ngIf="item.icon === 'home'"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+
+              <!-- Users icon for Teams -->
+              <svg
+                *ngIf="item.icon === 'users'"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                />
+              </svg>
+
+              <!-- Folder icon for Projects -->
+              <svg
+                *ngIf="item.icon === 'folder'"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                />
+              </svg>
+
+              <!-- Calendar icon -->
+              <svg
+                *ngIf="item.icon === 'calendar'"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+
+              <!-- Documents icon -->
+              <svg
+                *ngIf="item.icon === 'documents'"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
+                />
+              </svg>
+
+              <!-- Chart/Reports icon -->
+              <svg
+                *ngIf="item.icon === 'chart'"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
+                />
+              </svg>
+            </div>
+
+            <!-- Menu item label text -->
+            <span>{{ item.label }}</span>
+          </div>
+
+          <!-- Right side: Chevron arrow (only if has submenu) -->
+          <!--
+            - w-4: Width of 16px (4 * 4px)
+            - h-4: Height of 16px
+            - transition-transform: Smooth transition for rotation
+            - group-hover:translate-x-0.5: On hover, moves 2px to the right
+          -->
+          <svg
+            *ngIf="item.hasSubmenu"
+            class="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </ng-container>
+    </div>
+  </nav>
+
+  <!--
+    User profile section at the bottom
+    - mt-auto: Pushes this to the bottom (margin-top: auto)
+    - p-4: Padding of 16px (4 * 4px) on all sides
+    - border-t: Border on the top
+    - border-slate-800: Dark slate color for border
+  -->
+  <div class="mt-auto p-4 border-t border-slate-800">
+    <!--
+      - flex: Flexbox container
+      - items-center: Vertically center items
+      - gap-3: Gap of 12px (3 * 4px) between items
+      - px-2: Padding left/right of 8px
+    -->
+    <div class="flex items-center gap-3 px-2">
+      <!--
+        Avatar image
+        - w-10: Width of 40px (10 * 4px)
+        - h-10: Height of 40px
+        - rounded-full: Makes it a perfect circle
+        - object-cover: Ensures image covers the area without distortion
+        - border-2: 2px border width
+        - border-slate-700: Medium slate color for border
+      -->
+      <!-- <img
+        [src]="user.avatar"
+        [alt]="user.name"
+        class="w-10 h-10 rounded-full object-cover border-2 border-slate-700"
+        onerror="this.src = 'https://ui-avatars.com/api/?name=Tom+Cook&background=3b82f6&color=fff'"
+      /> -->
+
+      <!--
+        User name text
+        - text-sm: Small text size (14px)
+        - font-medium: Medium font weight (500)
+        - text-white: White color
+      -->
+      <span class="text-sm font-medium text-white">{{ info }}</span>
+    </div>
+  </div>
+</aside>

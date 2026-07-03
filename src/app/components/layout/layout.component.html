@@ -1,0 +1,38 @@
+<!-- Main layout container -->
+<div class="min-h-screen bg-slate-950">
+  <!-- Include the sidebar component -->
+  <app-sidebar></app-sidebar>
+
+  <!--
+    Main content area
+    - ml-80: Margin-left of 320px (80 * 4px) to account for sidebar width
+    - min-h-screen: Minimum height of 100vh
+    - bg-slate-950: Very dark background color
+    - p-8: Padding of 32px (8 * 4px) on all sides
+  -->
+  <main class="ml-80 min-h-screen bg-slate-950 p-8">
+    <!--
+      Content container
+      - max-w-7xl: Maximum width of 1280px
+      - mx-auto: Centers the container horizontally
+    -->
+    <div class="max-w-7xl mx-auto">
+      <!--
+        This is where your routed components will be displayed
+        The router-outlet will load different components based on the route
+      -->
+      <router-outlet></router-outlet>
+
+      <!--
+        If you don't have routing set up yet, you can use this content area
+        to display your main component content
+      -->
+      <!--
+      <div class="bg-slate-900 rounded-lg p-6 border border-slate-800">
+        <h1 class="text-2xl font-bold text-white mb-4">Main Content Area</h1>
+        <p class="text-slate-400">Your content goes here</p>
+      </div>
+      -->
+    </div>
+  </main>
+</div>

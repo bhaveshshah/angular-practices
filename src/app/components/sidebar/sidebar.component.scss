@@ -1,0 +1,27 @@
+/* Custom scrollbar styling for the navigation area */
+nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: #334155; /* slate-700 */
+  border-radius: 3px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: #475569; /* slate-600 */
+}
+
+/* Smooth transitions for all interactive elements */
+button {
+  cursor: pointer;
+}
+
+/* Ensure the sidebar stays on top */
+aside {
+  z-index: 40;
+}
